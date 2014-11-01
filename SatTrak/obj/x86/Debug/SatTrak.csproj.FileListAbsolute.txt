@@ -1,0 +1,26 @@
+C:\Users\Kids\AppData\Local\Temporary Projects\SatTrak\bin\Debug\SatTrak.exe
+C:\Users\Kids\AppData\Local\Temporary Projects\SatTrak\bin\Debug\SatTrak.pdb
+C:\Users\Kids\AppData\Local\Temporary Projects\SatTrak\obj\x86\Debug\SatTrak.Window.resources
+C:\Users\Kids\AppData\Local\Temporary Projects\SatTrak\obj\x86\Debug\SatTrak.Properties.Resources.resources
+C:\Users\Kids\AppData\Local\Temporary Projects\SatTrak\obj\x86\Debug\SatTrak.csproj.GenerateResource.Cache
+C:\Users\Kids\AppData\Local\Temporary Projects\SatTrak\obj\x86\Debug\SatTrak.exe
+C:\Users\Kids\AppData\Local\Temporary Projects\SatTrak\obj\x86\Debug\SatTrak.pdb
+C:\Users\Kids\documents\visual studio 2010\Projects\SatTrak\SatTrak\obj\x86\Debug\SatTrak.exe
+C:\Users\Kids\documents\visual studio 2010\Projects\SatTrak\SatTrak\obj\x86\Debug\SatTrak.pdb
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Debug\SatTrak.exe
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Debug\SatTrak.pdb
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Debug\SatTrak.Window.resources
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Debug\SatTrak.Properties.Resources.resources
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Debug\SatTrak.csproj.GenerateResource.Cache
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\SatTrak.exe
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\SatTrak.pdb
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Debug\SatTrak.csprojResolveAssemblyReference.cache
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\Zeptomoby.OrbitTools.Core.dll
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\Zeptomoby.OrbitTools.Orbit.dll
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\Zeptomoby.OrbitTools.Core.pdb
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\Zeptomoby.OrbitTools.Orbit.pdb
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Debug\SatTrak.AddWindow.resources
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\SatTrak.exe.config
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\RestSharp.dll
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\WolframAlpha.NET.dll
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\WolframAlpha.NET.pdb

@@ -1,0 +1,15 @@
+C:\Users\Kids\AppData\Local\Temporary Projects\SatTrak\obj\x86\Release\SatTrak.Window.resources
+C:\Users\Kids\AppData\Local\Temporary Projects\SatTrak\obj\x86\Release\SatTrak.Properties.Resources.resources
+C:\Users\Kids\AppData\Local\Temporary Projects\SatTrak\obj\x86\Release\SatTrak.csproj.GenerateResource.Cache
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Release\SatTrak.exe
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Release\SatTrak.pdb
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Release\Zeptomoby.OrbitTools.Core.dll
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Release\Zeptomoby.OrbitTools.Orbit.dll
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Release\Zeptomoby.OrbitTools.Core.pdb
+D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Release\Zeptomoby.OrbitTools.Orbit.pdb
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Release\SatTrak.AddWindow.resources
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Release\SatTrak.Window.resources
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Release\SatTrak.Properties.Resources.resources
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Release\SatTrak.csproj.GenerateResource.Cache
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Release\SatTrak.exe
+D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Release\SatTrak.pdb
