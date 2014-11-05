@@ -124,7 +124,7 @@ namespace SatTrak
             List<Tle> list = new List<Tle>();
 
             //Items selected
-            int itemCount = checkedListBox1.SelectedItems.Count;
+            int itemCount = checkedListBox1.CheckedItems.Count;
 
             //Create a new background worker
             BackgroundWorker bw = new BackgroundWorker();
@@ -139,6 +139,7 @@ namespace SatTrak
                 BackgroundWorker b = o as BackgroundWorker;
 
                 int loop = 0;
+                float prog, prog1;
                 foreach (string name in checkedListBox1.CheckedItems)
                 {
                     switch (name)
@@ -211,9 +212,13 @@ namespace SatTrak
                             list.AddRange(parseTLEList("other.txt"));
                             break;
                     }
-                    Console.WriteLine("helo");
                     loop++;
-                    b.ReportProgress((loop / itemCount) * 100);                    
+                    prog1 = ((float)loop / (float)itemCount);
+                    prog = prog1 * 100;
+                    b.ReportProgress((int)prog);
+                    Console.WriteLine(loop);
+                    Console.WriteLine(itemCount);
+                    Console.WriteLine("--------------");
                 }
             });
 

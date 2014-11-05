@@ -24,3 +24,20 @@ D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\SatTrak.exe.config
 D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\RestSharp.dll
 D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\WolframAlpha.NET.dll
 D:\Manuel\C# Projects\SatTrak\SatTrak\bin\Debug\WolframAlpha.NET.pdb
+D:\Manuel\Github\SatTrak\SatTrak\bin\Debug\SatTrak.exe.config
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Debug\SatTrak.exe
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Debug\SatTrak.pdb
+D:\Manuel\Github\SatTrak\SatTrak\bin\Debug\SatTrak.exe
+D:\Manuel\Github\SatTrak\SatTrak\bin\Debug\SatTrak.pdb
+D:\Manuel\Github\SatTrak\SatTrak\bin\Debug\RestSharp.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Debug\WolframAlpha.NET.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Debug\Zeptomoby.OrbitTools.Core.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Debug\Zeptomoby.OrbitTools.Orbit.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Debug\WolframAlpha.NET.pdb
+D:\Manuel\Github\SatTrak\SatTrak\bin\Debug\Zeptomoby.OrbitTools.Core.pdb
+D:\Manuel\Github\SatTrak\SatTrak\bin\Debug\Zeptomoby.OrbitTools.Orbit.pdb
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Debug\SatTrak.csprojResolveAssemblyReference.cache
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Debug\SatTrak.AddWindow.resources
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Debug\SatTrak.Window.resources
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Debug\SatTrak.Properties.Resources.resources
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Debug\SatTrak.csproj.GenerateResource.Cache

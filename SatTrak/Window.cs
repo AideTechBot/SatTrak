@@ -239,8 +239,11 @@ namespace SatTrak
                 if (tle.Name == name)
                 {
                     Satellites.Remove(tle);
-                    if (Target.Name == name)
-                        LockedOn = false;
+                    if (!(Target == null))
+                    {
+                        if (Target.Name == name)
+                            LockedOn = false;
+                    }
                     break;
                 }
             }
@@ -250,7 +253,7 @@ namespace SatTrak
             {
                 satList.SelectedIndex = num;
             }
-            catch
+            catch (ArgumentOutOfRangeException)
             {
                 return;
             }
