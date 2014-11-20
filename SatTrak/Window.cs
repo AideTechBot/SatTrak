@@ -73,7 +73,8 @@ namespace SatTrak
             radarTimer.Start();
             this.Radar.Paint +=new System.Windows.Forms.PaintEventHandler(this.Radar_Paint);
 
-            //this is a ghost sat to make the graph apear, it will never show.
+            //this is a ghost sat to make the graph apear, it will never show. this is temporary
+            //there will be more ghosts depending on where the user changes his position to
             string name = "ghost", line1 = "1 40107U 14046A   14250.92710958 -.00000361  00000-0  00000+0 0   339", line2 = "2 40107 000.0329 293.8315 0001387 253.7602 238.3546 01.00268192   384";
             Tle ghost = new Tle(name,line1,line2);
             Satellites.Add(ghost);
@@ -169,13 +170,14 @@ namespace SatTrak
                     continue;
                 }
             }
-
-            if (!(Target == null))
+            //this is temporary
+            if (!(Target == null))¸
                 showSatInfo();
         }
 
         private void showSatInfo()
         {
+            //to avoid calling the wolfram api more than once i`ll make this function only call once: when the target locks on
             satNameLabel.Text = Target.Name;
             while (satNameLabel.Width < System.Windows.Forms.TextRenderer.MeasureText(satNameLabel.Text, new Font(satNameLabel.Font.FontFamily, satNameLabel.Font.Size, satNameLabel.Font.Style)).Width)
             {
@@ -270,6 +272,7 @@ namespace SatTrak
         {
             if (satList.SelectedItem == null)
                 return;
+            //This could probably break depending on the sitituation TODO: FIX
             statusText.Text = "Locking onto: " + satList.SelectedItem.ToString();
             LockedOn = true;
             foreach (Tle tle in Satellites)
