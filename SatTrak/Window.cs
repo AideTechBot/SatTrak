@@ -65,6 +65,8 @@ namespace SatTrak
         delegate void SetTextCallback(int prog);
         private static Int32 port = 3762;
         private static string serverIP = "192.168.2.23";
+        private static TcpClient client;
+        private static NetworkStream stream;
 
         public Window()
         {
@@ -79,7 +81,7 @@ namespace SatTrak
             this.Radar.Paint +=new System.Windows.Forms.PaintEventHandler(this.Radar_Paint);
 
             LockTimer.Tick += new EventHandler(SendPosition);
-            LockTimer.Interval = 500;
+            LockTimer.Interval = 1000;
             LockTimer.Start();
 
             //this is a ghost sat to make the graph apear, it will never show.
@@ -117,28 +119,26 @@ namespace SatTrak
             }
         }
 
-        private static void sendData(TcpClient client, string message)
+        private static void sendData(string message)
         {
             //sendin som datas ft antoine
             string output = "";
 
             try
             {
-                
+
                 Byte[] data = new Byte[256];
                 data = System.Text.Encoding.ASCII.GetBytes(message);
 
-                NetworkStream stream = client.GetStream();
-
                 stream.Write(data, 0, data.Length);
 
-                String responseData = String.Empty;
+                //String responseData = String.Empty;
 
-                Int32 bytes = stream.Read(data, 0, data.Length);
-                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                //Int32 bytes = stream.Read(data, 0, data.Length);
+                //responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
 
                 // Close everything.
-                stream.Close();
+                
             }
             catch (ArgumentNullException e)
             {
@@ -150,6 +150,12 @@ namespace SatTrak
                 output = "SocketException: " + e.ToString();
                 MessageBox.Show(output);
             }
+            catch (InvalidOperationException e)
+            {
+                output = "InvalidOperationException: " + e.ToString();
+                MessageBox.Show(output);
+            }
+            
         }
 
         #endregion
@@ -224,9 +230,14 @@ namespace SatTrak
 
         public void SendPosition(Object obj, EventArgs e)
         {
-            //TcpClient client = new TcpClient(serverIP, port);
-            //sendData(client, "allo");
-            //client.Close();
+            if (client != null && client.Connected)
+            {
+                if(Target != null)
+                {
+                    double[] coord = getSkyCoords(Target);
+                    sendData("START|" + coord[0].ToString() + "|" + coord[1].ToString() + "|END");
+                }
+            }
         }
 
         private void showSatInfo()
@@ -338,14 +349,54 @@ namespace SatTrak
                 }
             }
         }
+
+        private void aimButton_Click(object sender, EventArgs e)
+        {
+            
+        }
+
         private void connectButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (Target != null)
+                {
+                    try
+                    {
+                        statusText.Text = "Connecting to: " + serverIP.ToString() + ":" + port.ToString();
+                        client = new TcpClient(ipBox.Text, Convert.ToInt32(portBox.Text));
+                        stream = client.GetStream();
+                        statusText.Text = "Connected.";
+                    }
+                    catch (SocketException err)
+                    {
+                        MessageBox.Show("Invalid characters in the IP/port field.");
+                    }
 
+                }
+                else
+                {
+                    MessageBox.Show("No target set.");
+                }
+            }
+            catch (SocketException er)
+            {
+                MessageBox.Show("Target IP and port actively refused the connection.");
+            }
         }
 
         private void disconnectButton_Click(object sender, EventArgs e)
         {
-
+            if (client != null)
+            {
+                client.Close();
+                stream.Close();
+                statusText.Text = "Disconnecting from: " + serverIP.ToString() + ":" + port.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Client not connected.");
+            }
         }
    
         private void statusProgressBar_Click(object sender, EventArgs e)

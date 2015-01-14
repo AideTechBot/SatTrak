@@ -49,15 +49,15 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.aimButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.connectButton = new System.Windows.Forms.Button();
             this.disconnectButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.ipBox = new System.Windows.Forms.TextBox();
+            this.portBox = new System.Windows.Forms.TextBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -330,7 +330,7 @@
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel3.Controls.Add(this.button1, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.aimButton, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 255);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -339,16 +339,17 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(184, 30);
             this.tableLayoutPanel3.TabIndex = 6;
             // 
-            // button1
+            // aimButton
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.Location = new System.Drawing.Point(119, 0);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(65, 25);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Aim";
-            this.button1.UseVisualStyleBackColor = true;
+            this.aimButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.aimButton.Location = new System.Drawing.Point(119, 0);
+            this.aimButton.Margin = new System.Windows.Forms.Padding(0);
+            this.aimButton.Name = "aimButton";
+            this.aimButton.Size = new System.Drawing.Size(65, 25);
+            this.aimButton.TabIndex = 0;
+            this.aimButton.Text = "Aim";
+            this.aimButton.UseVisualStyleBackColor = true;
+            this.aimButton.Click += new System.EventHandler(this.aimButton_Click);
             // 
             // tableLayoutPanel5
             // 
@@ -421,8 +422,8 @@
             this.tableLayoutPanel7.ColumnCount = 2;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70.78651F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.21348F));
-            this.tableLayoutPanel7.Controls.Add(this.textBox3, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.textBox4, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.ipBox, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.portBox, 1, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 20);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -431,23 +432,27 @@
             this.tableLayoutPanel7.Size = new System.Drawing.Size(178, 23);
             this.tableLayoutPanel7.TabIndex = 2;
             // 
-            // textBox3
+            // ipBox
             // 
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Location = new System.Drawing.Point(0, 0);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(0);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(126, 20);
-            this.textBox3.TabIndex = 0;
+            this.ipBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ipBox.Location = new System.Drawing.Point(0, 0);
+            this.ipBox.Margin = new System.Windows.Forms.Padding(0);
+            this.ipBox.MaxLength = 100;
+            this.ipBox.Name = "ipBox";
+            this.ipBox.Size = new System.Drawing.Size(126, 20);
+            this.ipBox.TabIndex = 0;
+            this.ipBox.Text = "localhost";
             // 
-            // textBox4
+            // portBox
             // 
-            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox4.Location = new System.Drawing.Point(126, 0);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(0);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(52, 20);
-            this.textBox4.TabIndex = 1;
+            this.portBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.portBox.Location = new System.Drawing.Point(126, 0);
+            this.portBox.Margin = new System.Windows.Forms.Padding(0);
+            this.portBox.MaxLength = 5;
+            this.portBox.Name = "portBox";
+            this.portBox.Size = new System.Drawing.Size(52, 20);
+            this.portBox.TabIndex = 1;
+            this.portBox.Text = "3762";
             // 
             // statusStrip
             // 
@@ -562,7 +567,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button aimButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label satNameLabel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
@@ -571,8 +576,8 @@
         private System.Windows.Forms.Button disconnectButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox ipBox;
+        private System.Windows.Forms.TextBox portBox;
 
 
 
