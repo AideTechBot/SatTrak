@@ -34,10 +34,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Net.Sockets;
 using Zeptomoby.OrbitTools;
 using WolframAlphaNET;
 using WolframAlphaNET.Misc;
 using WolframAlphaNET.Objects;
+
 
 namespace SatTrak
 {
@@ -55,11 +57,14 @@ namespace SatTrak
         #region Init
 
         private static Timer radarTimer = new System.Windows.Forms.Timer();
+        private static Timer LockTimer = new System.Windows.Forms.Timer();
         private static List<Tle> Satellites = new List<Tle>();
         public static Boolean LockedOn = false;
         public static Tle Target;
         public string WolframAppId = "XWHTJL-7RWXKQ3W34";
         delegate void SetTextCallback(int prog);
+        private static Int32 port = 3762;
+        private static string serverIP = "192.168.2.23";
 
         public Window()
         {
@@ -72,6 +77,10 @@ namespace SatTrak
             radarTimer.Interval = 200;
             radarTimer.Start();
             this.Radar.Paint +=new System.Windows.Forms.PaintEventHandler(this.Radar_Paint);
+
+            LockTimer.Tick += new EventHandler(SendPosition);
+            LockTimer.Interval = 500;
+            LockTimer.Start();
 
             //this is a ghost sat to make the graph apear, it will never show.
             string name = "ghost", line1 = "1 40107U 14046A   14250.92710958 -.00000361  00000-0  00000+0 0   339", line2 = "2 40107 000.0329 293.8315 0001387 253.7602 238.3546 01.00268192   384";
@@ -103,6 +112,41 @@ namespace SatTrak
             catch
             {
                 return array;
+            }
+        }
+
+        private static void sendData(TcpClient client, string message)
+        {
+            //sendin som datas ft antoine
+            string output = "";
+
+            try
+            {
+                
+                Byte[] data = new Byte[256];
+                data = System.Text.Encoding.ASCII.GetBytes(message);
+
+                NetworkStream stream = client.GetStream();
+
+                stream.Write(data, 0, data.Length);
+
+                String responseData = String.Empty;
+
+                Int32 bytes = stream.Read(data, 0, data.Length);
+                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+
+                // Close everything.
+                stream.Close();
+            }
+            catch (ArgumentNullException e)
+            {
+                output = "ArgumentNullException: " + e;
+                MessageBox.Show(output);
+            }
+            catch (SocketException e)
+            {
+                output = "SocketException: " + e.ToString();
+                MessageBox.Show(output);
             }
         }
 
@@ -159,19 +203,28 @@ namespace SatTrak
 
             foreach (Tle tle in Satellites)
             {
+                double[] array;
                 try
                 {
-                    double[] array = getSkyCoords(tle);
-                    Radar.Series[0].Points.AddXY(array[0], array[1]);
+                    array = getSkyCoords(tle);
                 }
                 catch (Zeptomoby.OrbitTools.DecayException)
                 {
                     continue;
                 }
+                if(!(array == null))
+                    Radar.Series[0].Points.AddXY(array[0], array[1]);
             }
 
             if (!(Target == null))
                 showSatInfo();
+        }
+
+        public void SendPosition(Object obj, EventArgs e)
+        {
+            //TcpClient client = new TcpClient(serverIP, port);
+            //sendData(client, "allo");
+            //client.Close();
         }
 
         private void showSatInfo()
@@ -280,6 +333,15 @@ namespace SatTrak
                     break;
                 }
             }
+        }
+        private void connectButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void disconnectButton_Click(object sender, EventArgs e)
+        {
+
         }
    
         private void statusProgressBar_Click(object sender, EventArgs e)
@@ -399,7 +461,6 @@ namespace SatTrak
             }
         }
         #endregion
-
 
 
     }

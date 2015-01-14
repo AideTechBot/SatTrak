@@ -13,3 +13,42 @@ D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Release\SatTrak.Properties.Resourc
 D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Release\SatTrak.csproj.GenerateResource.Cache
 D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Release\SatTrak.exe
 D:\Manuel\C# Projects\SatTrak\SatTrak\obj\x86\Release\SatTrak.pdb
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\SatTrak.exe.config
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Release\SatTrak.exe
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\SatTrak.exe
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\SatTrak.pdb
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\RestSharp.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\WolframAlpha.NET.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Zeptomoby.OrbitTools.Core.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Zeptomoby.OrbitTools.Orbit.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\WolframAlpha.NET.pdb
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Zeptomoby.OrbitTools.Core.pdb
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Zeptomoby.OrbitTools.Orbit.pdb
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Release\SatTrak.csprojResolveAssemblyReference.cache
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Release\SatTrak.AddWindow.resources
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Release\SatTrak.Window.resources
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Release\SatTrak.Properties.Resources.resources
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Release\SatTrak.csproj.GenerateResource.Cache
+D:\Manuel\Github\SatTrak\SatTrak\obj\x86\Release\SatTrak.pdb
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.CSharp.Desktop.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.CSharp.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.Desktop.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.VisualBasic.Desktop.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\System.Collections.Immutable.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\System.Reflection.Metadata.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.xml
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.CSharp.xml
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.CSharp.Desktop.xml
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.CSharp.Workspaces.xml
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.Desktop.xml
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.VisualBasic.xml
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.VisualBasic.Desktop.xml
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.VisualBasic.Workspaces.xml
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.Workspaces.xml
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\System.Collections.Immutable.xml
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\System.Reflection.Metadata.xml
