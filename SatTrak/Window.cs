@@ -78,16 +78,13 @@ namespace SatTrak
             radarTimer.Start();
             this.Radar.Paint +=new System.Windows.Forms.PaintEventHandler(this.Radar_Paint);
 
-<<<<<<< HEAD
             LockTimer.Tick += new EventHandler(SendPosition);
             LockTimer.Interval = 500;
             LockTimer.Start();
 
             //this is a ghost sat to make the graph apear, it will never show.
-=======
             //this is a ghost sat to make the graph apear, it will never show. this is temporary
             //there will be more ghosts depending on where the user changes his position to
->>>>>>> origin/master
             string name = "ghost", line1 = "1 40107U 14046A   14250.92710958 -.00000361  00000-0  00000+0 0   339", line2 = "2 40107 000.0329 293.8315 0001387 253.7602 238.3546 01.00268192   384";
             Tle ghost = new Tle(name,line1,line2);
             Satellites.Add(ghost);
@@ -221,7 +218,7 @@ namespace SatTrak
                     Radar.Series[0].Points.AddXY(array[0], array[1]);
             }
             //this is temporary
-            if (!(Target == null))¸
+            if (!(Target == null))
                 showSatInfo();
         }
 

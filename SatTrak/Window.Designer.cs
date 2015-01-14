@@ -55,14 +55,14 @@
             this.connectButton = new System.Windows.Forms.Button();
             this.disconnectButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.satNameLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.splitTable.SuspendLayout();
             this.radarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Radar)).BeginInit();
@@ -73,9 +73,9 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitTable
@@ -416,6 +416,39 @@
             this.label4.TabIndex = 1;
             this.label4.Text = "Address and port";
             // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70.78651F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.21348F));
+            this.tableLayoutPanel7.Controls.Add(this.textBox3, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.textBox4, 1, 0);
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 20);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(178, 23);
+            this.tableLayoutPanel7.TabIndex = 2;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox3.Location = new System.Drawing.Point(0, 0);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(0);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(126, 20);
+            this.textBox3.TabIndex = 0;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox4.Location = new System.Drawing.Point(126, 0);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(0);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(52, 20);
+            this.textBox4.TabIndex = 1;
+            // 
             // statusStrip
             // 
             this.splitTable.SetColumnSpan(this.statusStrip, 3);
@@ -470,39 +503,6 @@
             this.satNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.satNameLabel.Click += new System.EventHandler(this.label4_Click);
             // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70.78651F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.21348F));
-            this.tableLayoutPanel7.Controls.Add(this.textBox3, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.textBox4, 1, 0);
-            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 20);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 1;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(178, 23);
-            this.tableLayoutPanel7.TabIndex = 2;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Location = new System.Drawing.Point(0, 0);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(0);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(125, 20);
-            this.textBox3.TabIndex = 0;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox4.Location = new System.Drawing.Point(125, 0);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(0);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(53, 20);
-            this.textBox4.TabIndex = 1;
-            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -529,12 +529,12 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
             this.ResumeLayout(false);
 
         }
