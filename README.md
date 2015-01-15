@@ -4,7 +4,7 @@ SatTrak
 Software to simplify the tracking and acquisition of satellites in low earth orbit.
 
 =======
-**** Logarithmic Periodic Dipole Antenna ****
+Logarithmic Periodic Dipole Antenna
 =======
 These are the specifications for the antenna that I'm going to use.
 ```
