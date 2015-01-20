@@ -63,8 +63,6 @@ namespace SatTrak
         public static Tle Target;
         public string WolframAppId = "XWHTJL-7RWXKQ3W34";
         delegate void SetTextCallback(int prog);
-        private static Int32 port = 3762;
-        private static string serverIP = "192.168.2.23";
         private static TcpClient client;
         private static NetworkStream stream;
 
@@ -363,7 +361,7 @@ namespace SatTrak
                 {
                     try
                     {
-                        statusText.Text = "Connecting to: " + serverIP.ToString() + ":" + port.ToString();
+                        statusText.Text = "Connecting to: " + ipBox.Text.ToString() + ":" + portBox.Text.ToString();
                         client = new TcpClient(ipBox.Text, Convert.ToInt32(portBox.Text));
                         stream = client.GetStream();
                         statusText.Text = "Connected.";
@@ -391,7 +389,7 @@ namespace SatTrak
             {
                 client.Close();
                 stream.Close();
-                statusText.Text = "Disconnecting from: " + serverIP.ToString() + ":" + port.ToString();
+                statusText.Text = "Disconnecting from: " + ipBox.Text.ToString() + ":" + portBox.Text.ToString();
             }
             else
             {
