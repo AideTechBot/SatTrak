@@ -65,6 +65,8 @@ namespace SatTrak
         delegate void SetTextCallback(int prog);
         private static TcpClient client;
         private static NetworkStream stream;
+        private static double longitude = 47.381981;
+        private static double latitude = -68.314392;
 
         public Window()
         {
@@ -95,7 +97,7 @@ namespace SatTrak
         {
             double[] array = { -1 , -1 };
             //create a viewing site
-            Site site = new Site(47.381981, -68.314392, 0.240949);
+            Site site = new Site(latitude, longitude, 0.240949);
             //make an orbit out of the tle
             Orbit orbit = new Orbit(tle);
             //get the date
@@ -412,6 +414,22 @@ namespace SatTrak
 
         }
 
+        private void coordSetButton_Click(object sender, EventArgs e)
+        {
+            if (longitudeBox.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Invalid longitude");
+                return;
+            }
+            if (latitudeBox.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Invalid latitude");
+                return;
+            }
+            longitude = Convert.ToDouble(longitudeBox.Text);
+            latitude = Convert.ToDouble(latitudeBox.Text);
+        }
+
         #endregion
 
 
@@ -513,7 +531,25 @@ namespace SatTrak
                 }
             }
         }
+
+        private void tableLayoutPanel8_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void menuTable_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
         #endregion
+
+       
 
 
     }
