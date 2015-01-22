@@ -70,6 +70,7 @@
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.satNameLabel = new System.Windows.Forms.Label();
+            this.clearButton = new System.Windows.Forms.Button();
             this.splitTable.SuspendLayout();
             this.radarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Radar)).BeginInit();
@@ -269,13 +270,14 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.72727F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.72727F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.72727F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.81818F));
             this.tableLayoutPanel1.Controls.Add(this.lockButton, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.addButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.removeButton, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.clearButton, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 182);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -290,7 +292,7 @@
             this.lockButton.Location = new System.Drawing.Point(0, 0);
             this.lockButton.Margin = new System.Windows.Forms.Padding(0);
             this.lockButton.Name = "lockButton";
-            this.lockButton.Size = new System.Drawing.Size(46, 21);
+            this.lockButton.Size = new System.Drawing.Size(41, 21);
             this.lockButton.TabIndex = 0;
             this.lockButton.Text = "Lock";
             this.lockButton.UseVisualStyleBackColor = true;
@@ -299,10 +301,10 @@
             // addButton
             // 
             this.addButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.addButton.Location = new System.Drawing.Point(73, 0);
+            this.addButton.Location = new System.Drawing.Point(82, 0);
             this.addButton.Margin = new System.Windows.Forms.Padding(0);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(46, 21);
+            this.addButton.Size = new System.Drawing.Size(41, 21);
             this.addButton.TabIndex = 1;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -311,10 +313,10 @@
             // removeButton
             // 
             this.removeButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.removeButton.Location = new System.Drawing.Point(119, 0);
+            this.removeButton.Location = new System.Drawing.Point(123, 0);
             this.removeButton.Margin = new System.Windows.Forms.Padding(0);
             this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(65, 21);
+            this.removeButton.Size = new System.Drawing.Size(61, 21);
             this.removeButton.TabIndex = 2;
             this.removeButton.Text = "Remove";
             this.removeButton.UseVisualStyleBackColor = true;
@@ -610,6 +612,18 @@
             this.satNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.satNameLabel.Click += new System.EventHandler(this.label4_Click);
             // 
+            // clearButton
+            // 
+            this.clearButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clearButton.Location = new System.Drawing.Point(41, 0);
+            this.clearButton.Margin = new System.Windows.Forms.Padding(0);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(41, 21);
+            this.clearButton.TabIndex = 3;
+            this.clearButton.Text = "Clear";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -690,6 +704,7 @@
         private System.Windows.Forms.TextBox latitudeBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.Button coordSetButton;
+        private System.Windows.Forms.Button clearButton;
 
 
 

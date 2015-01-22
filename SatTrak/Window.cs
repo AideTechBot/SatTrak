@@ -220,8 +220,18 @@ namespace SatTrak
                 {
                     continue;
                 }
-                if(!(array == null))
-                    Radar.Series[0].Points.AddXY(array[0], array[1]);
+                if (!(array == null))
+                    if (tle == Target)
+                    {
+                        Radar.Series[0].Color = System.Drawing.Color.Crimson;
+                        Radar.Series[0].Points.AddXY(array[0], array[1]);
+                    }
+                    else
+                    {
+                        Radar.Series[0].Color = System.Drawing.Color.DodgerBlue;
+                        Radar.Series[0].Points.AddXY(array[0], array[1]);
+                    }
+                    
             }
             //this is temporary
             if (!(Target == null))
@@ -333,6 +343,22 @@ namespace SatTrak
             addwindow.Show();
         }
 
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            for (int c = Satellites.Count - 1; c >= 0; c--)
+            {
+                Satellites.RemoveAt(c);
+            }
+            string name = "ghost", line1 = "1 40107U 14046A   14250.92710958 -.00000361  00000-0  00000+0 0   339", line2 = "2 40107 000.0329 293.8315 0001387 253.7602 238.3546 01.00268192   384";
+            Tle ghost = new Tle(name, line1, line2);
+            Satellites.Add(ghost);
+            for (int i = satList.Items.Count - 1; i >= 0; i--)
+            {
+                satList.Items.RemoveAt(i);
+            }
+            statusText.Text = "Cleared satellite list.";
+        }
+
         private void lockButton_Click(object sender, EventArgs e)
         {
             if (satList.SelectedItem == null)
@@ -416,14 +442,14 @@ namespace SatTrak
 
         private void coordSetButton_Click(object sender, EventArgs e)
         {
-            if (longitudeBox.Text.Trim().Length == 0)
+            if (longitudeBox.Text.Trim().Length == 0 || 
+                latitudeBox.Text.Trim().Length == 0 || 
+                Convert.ToDouble(longitudeBox.Text) > 180 || 
+                Convert.ToDouble(longitudeBox.Text) < -180 || 
+                Convert.ToDouble(latitudeBox.Text) > 90 || 
+                Convert.ToDouble(latitudeBox.Text) < -90)
             {
-                MessageBox.Show("Invalid longitude");
-                return;
-            }
-            if (latitudeBox.Text.Trim().Length == 0)
-            {
-                MessageBox.Show("Invalid latitude");
+                MessageBox.Show("Invalid coordinates");
                 return;
             }
             longitude = Convert.ToDouble(longitudeBox.Text);
@@ -436,7 +462,7 @@ namespace SatTrak
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //PAINT HANDLERS
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -456,8 +482,8 @@ namespace SatTrak
             if (LockedOn)
             {
                 float[] coords = { Convert.ToSingle(getSkyCoords(Target)[0]), Convert.ToSingle(getSkyCoords(Target)[1]) };
-
-                float scale = 1;
+                Console.WriteLine(coords[0]);
+                double scale = 1;
 
                 float[] origin = { Radar.Width / 2, Radar.Height / 2 };
 
@@ -470,10 +496,11 @@ namespace SatTrak
                     g.FillRectangle(Brushes.Cyan, x2 + 10, y2 + 10, 1, 1);
                 }
                 //first quadrant
-                if(coords[0] < 90 && coords[0] > 0)
+                if(coords[0] < 90 && coords[0] > 0 && !(coords[1] < 0) )
                 {
-                    double[] deg = { coords[0] * Math.PI / 180, coords[1] * Math.PI/180};
-                    double dx = (90 - (deg[1] * scale)) * (Math.Cos(90 - deg[0])), dy = (90 - (deg[1] * scale)) * (Math.Sin(90 - deg[0]));
+                    double[] deg = { 90 - (coords[0] * Math.PI / 180), 90 - (coords[1] * Math.PI/180) };
+                    double dist = (90 - coords[1]);
+                    double dx = (dist * (Math.Cos(deg[0]))), dy = (dist * (Math.Sin(deg[1])));
                     double x2 = origin[0] + dx, y2 = origin[1] - dy;
                     Pen p2 = new Pen(Color.Cyan, 1);
                     g.DrawEllipse(p2, Convert.ToSingle(x2), Convert.ToSingle(y2), 20, 20);
@@ -549,7 +576,6 @@ namespace SatTrak
 
         #endregion
 
-       
 
 
     }
