@@ -32,13 +32,19 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Net;
+using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Net.Sockets;
+using System.Web;
 using Zeptomoby.OrbitTools;
 using WolframAlphaNET;
 using WolframAlphaNET.Misc;
 using WolframAlphaNET.Objects;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 
 namespace SatTrak
@@ -158,6 +164,32 @@ namespace SatTrak
             
         }
 
+        private void setDescription(string name)
+        {
+          
+            WebClient client = new WebClient();
+            StringBuilder url = new StringBuilder("http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=");
+            url.Append(HttpUtility.UrlEncode(name.Trim(' ').Replace(" ", "-")));
+            Console.WriteLine(url.ToString());
+            Stream stream = client.OpenRead(url.ToString());
+            StreamReader lineReader = new StreamReader(stream);
+         
+            Stream webStream = client.OpenRead(url.ToString());
+            StreamReader reader = new StreamReader(webStream);
+
+            string response = reader.ReadToEnd();
+            JObject data = JObject.Parse(response);
+            try
+            {
+                string noHTML = Regex.Replace(data["query"]["pages"].First.First["extract"].ToString(), @"<[^>]+>|&nbsp;", "").Trim();
+                desc.Text = noHTML;
+            }
+            catch (NullReferenceException)
+            {
+                desc.Text = "N/A";
+            }
+        }
+
         #endregion
 
 
@@ -262,6 +294,8 @@ namespace SatTrak
             {
                 satNameLabel.Font = new Font(satNameLabel.Font.FontFamily, satNameLabel.Font.Size + 0.5f, satNameLabel.Font.Style);
             }
+
+            
         }
 
         public void SetLoadProgress(int prog)
@@ -374,6 +408,31 @@ namespace SatTrak
                     break;
                 }
             }
+            /*
+            WolframAlpha wolfram = new WolframAlpha(WolframAppId);
+
+            QueryResult results = wolfram.Query(Target.Name);
+            try
+            {
+                if (results != null)
+                {
+                    foreach (Pod pod in results.Pods)
+                    {
+                        if (pod.Title == "Wikipedia summary")
+                        {
+                            Console.WriteLine(pod.SubPods[0].Image.Alt);
+                            desc.ImageLocation = pod.SubPods[0].Image.Src;
+                        }
+                    }
+                }
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("ERROR");
+            }
+            */
+            setDescription(Target.Name);
+
         }
 
         private void aimButton_Click(object sender, EventArgs e)
@@ -482,7 +541,7 @@ namespace SatTrak
             if (LockedOn)
             {
                 float[] coords = { Convert.ToSingle(getSkyCoords(Target)[0]), Convert.ToSingle(getSkyCoords(Target)[1]) };
-                Console.WriteLine(coords[0]);
+                //Console.WriteLine(coords[0]);
                 double scale = 1;
 
                 float[] origin = { Radar.Width / 2, Radar.Height / 2 };
@@ -574,8 +633,12 @@ namespace SatTrak
 
         }
 
-        #endregion
+        private void description_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        #endregion
 
 
     }

@@ -52,3 +52,5 @@ D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.VisualBasic.
 D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Microsoft.CodeAnalysis.Workspaces.xml
 D:\Manuel\Github\SatTrak\SatTrak\bin\Release\System.Collections.Immutable.xml
 D:\Manuel\Github\SatTrak\SatTrak\bin\Release\System.Reflection.Metadata.xml
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Newtonsoft.Json.dll
+D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Newtonsoft.Json.xml

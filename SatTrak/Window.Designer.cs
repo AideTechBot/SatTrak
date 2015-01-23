@@ -46,6 +46,7 @@
             this.lockButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
+            this.clearButton = new System.Windows.Forms.Button();
             this.satList = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -70,7 +71,7 @@
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.satNameLabel = new System.Windows.Forms.Label();
-            this.clearButton = new System.Windows.Forms.Button();
+            this.desc = new System.Windows.Forms.Label();
             this.splitTable.SuspendLayout();
             this.radarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Radar)).BeginInit();
@@ -190,10 +191,10 @@
             // tableLayoutPanel8
             // 
             this.tableLayoutPanel8.ColumnCount = 4;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28F));
             this.tableLayoutPanel8.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.label6, 2, 0);
             this.tableLayoutPanel8.Controls.Add(this.longitudeBox, 1, 0);
@@ -212,7 +213,7 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
             this.label5.Location = new System.Drawing.Point(3, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 13);
+            this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 0;
             this.label5.Text = "Long:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -221,9 +222,9 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label6.Location = new System.Drawing.Point(95, 0);
+            this.label6.Location = new System.Drawing.Point(94, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(40, 13);
+            this.label6.Size = new System.Drawing.Size(34, 13);
             this.label6.TabIndex = 1;
             this.label6.Text = "Lat:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -231,20 +232,21 @@
             // longitudeBox
             // 
             this.longitudeBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.longitudeBox.Location = new System.Drawing.Point(46, 0);
+            this.longitudeBox.Location = new System.Drawing.Point(40, 0);
             this.longitudeBox.Margin = new System.Windows.Forms.Padding(0);
-            this.longitudeBox.MaxLength = 3;
+            this.longitudeBox.MaxLength = 10;
             this.longitudeBox.Name = "longitudeBox";
-            this.longitudeBox.Size = new System.Drawing.Size(46, 20);
+            this.longitudeBox.Size = new System.Drawing.Size(51, 20);
             this.longitudeBox.TabIndex = 2;
             // 
             // latitudeBox
             // 
             this.latitudeBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.latitudeBox.Location = new System.Drawing.Point(138, 0);
+            this.latitudeBox.Location = new System.Drawing.Point(131, 0);
             this.latitudeBox.Margin = new System.Windows.Forms.Padding(0);
+            this.latitudeBox.MaxLength = 10;
             this.latitudeBox.Name = "latitudeBox";
-            this.latitudeBox.Size = new System.Drawing.Size(46, 20);
+            this.latitudeBox.Size = new System.Drawing.Size(53, 20);
             this.latitudeBox.TabIndex = 3;
             // 
             // flowLayoutPanel1
@@ -321,6 +323,18 @@
             this.removeButton.Text = "Remove";
             this.removeButton.UseVisualStyleBackColor = true;
             this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
+            // 
+            // clearButton
+            // 
+            this.clearButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.clearButton.Location = new System.Drawing.Point(41, 0);
+            this.clearButton.Margin = new System.Windows.Forms.Padding(0);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(41, 21);
+            this.clearButton.TabIndex = 3;
+            this.clearButton.Text = "Clear";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
             // satList
             // 
@@ -418,7 +432,7 @@
             // 
             // aimButton
             // 
-            this.aimButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.aimButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.aimButton.Location = new System.Drawing.Point(119, 0);
             this.aimButton.Margin = new System.Windows.Forms.Padding(0);
             this.aimButton.Name = "aimButton";
@@ -548,7 +562,7 @@
             // 
             // coordSetButton
             // 
-            this.coordSetButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.coordSetButton.Dock = System.Windows.Forms.DockStyle.Top;
             this.coordSetButton.Location = new System.Drawing.Point(119, 0);
             this.coordSetButton.Margin = new System.Windows.Forms.Padding(0);
             this.coordSetButton.Name = "coordSetButton";
@@ -590,6 +604,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.Controls.Add(this.satNameLabel, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.desc, 0, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(789, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -612,17 +627,16 @@
             this.satNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.satNameLabel.Click += new System.EventHandler(this.label4_Click);
             // 
-            // clearButton
+            // desc
             // 
-            this.clearButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clearButton.Location = new System.Drawing.Point(41, 0);
-            this.clearButton.Margin = new System.Windows.Forms.Padding(0);
-            this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(41, 21);
-            this.clearButton.TabIndex = 3;
-            this.clearButton.Text = "Clear";
-            this.clearButton.UseVisualStyleBackColor = true;
-            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            this.desc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.desc.Location = new System.Drawing.Point(0, 53);
+            this.desc.Margin = new System.Windows.Forms.Padding(0);
+            this.desc.Name = "desc";
+            this.desc.Size = new System.Drawing.Size(192, 483);
+            this.desc.TabIndex = 1;
+            this.desc.Text = "N/A";
+            this.desc.Click += new System.EventHandler(this.description_Click);
             // 
             // Window
             // 
@@ -631,8 +645,11 @@
             this.ClientSize = new System.Drawing.Size(984, 562);
             this.Controls.Add(this.splitTable);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(1200, 800);
+            this.MinimumSize = new System.Drawing.Size(1000, 600);
             this.Name = "Window";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SatTrak";
             this.Load += new System.EventHandler(this.Window_Load);
             this.splitTable.ResumeLayout(false);
@@ -705,6 +722,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.Button coordSetButton;
         private System.Windows.Forms.Button clearButton;
+        private System.Windows.Forms.Label desc;
 
 
 

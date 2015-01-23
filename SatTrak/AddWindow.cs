@@ -125,6 +125,8 @@ namespace SatTrak
             mainWindow.statusProgressBar.Visible = true;
             List<Tle> list = new List<Tle>();
 
+            mainWindow.Cursor = Cursors.WaitCursor;
+
             //Items selected
             int itemCount = checkedListBox1.CheckedItems.Count;
 
@@ -238,6 +240,7 @@ namespace SatTrak
                 mainWindow.updateSatList(list);
                 mainWindow.statusProgressBar.ProgressBar.Visible = false;
                 mainWindow.statusProgressBar.ProgressBar.Value = 0;
+                mainWindow.Cursor = Cursors.Arrow;
                 this.Close();
             });
 
