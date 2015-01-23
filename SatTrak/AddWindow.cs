@@ -119,6 +119,8 @@ namespace SatTrak
         private void addButton1_Click(object sender, EventArgs e)
         {
 
+            this.Hide();
+
             var mainWindow = Application.OpenForms.OfType<Window>().Single();
             mainWindow.statusProgressBar.Visible = true;
             List<Tle> list = new List<Tle>();
