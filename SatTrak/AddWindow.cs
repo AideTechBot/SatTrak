@@ -220,16 +220,16 @@ namespace SatTrak
                     prog1 = ((float)loop / (float)itemCount);
                     prog = prog1 * 100;
                     b.ReportProgress((int)prog);
-                    Console.WriteLine(loop);
-                    Console.WriteLine(itemCount);
-                    Console.WriteLine("--------------");
+                    //Console.WriteLine(loop);
+                    //Console.WriteLine(itemCount);
+                    //Console.WriteLine("--------------");
                 }
             });
 
             // what to do when progress changed (update the progress bar for example)
             bw.ProgressChanged += new ProgressChangedEventHandler(delegate(object o, ProgressChangedEventArgs args)
             {
-                Console.WriteLine(args.ProgressPercentage);
+                //Console.WriteLine(args.ProgressPercentage);
                 mainWindow.SetLoadProgress(args.ProgressPercentage);
 
             });

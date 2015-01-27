@@ -27,6 +27,7 @@ while 1:
 			data = conn.recv(1024)
 		except socket.error as e:
 			print "Unexpected shutdown of " + addr[0]
+			break
 		if not data:
 			print addr[0] + " has disconnected"
 			break

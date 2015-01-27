@@ -65,14 +65,16 @@ namespace SatTrak
         private static Timer radarTimer = new System.Windows.Forms.Timer();
         private static Timer LockTimer = new System.Windows.Forms.Timer();
         private static List<Tle> Satellites = new List<Tle>();
-        public static Boolean LockedOn = false;
+        public static bool LockedOn = false;
         public static Tle Target;
+        public static bool aimLock = false;
         public string WolframAppId = "XWHTJL-7RWXKQ3W34";
         delegate void SetTextCallback(int prog);
         private static TcpClient client;
         private static NetworkStream stream;
         private static double longitude = 47.381981;
         private static double latitude = -68.314392;
+        private static decimal[] aimAt = {0,0};
 
         public Window()
         {
@@ -90,12 +92,7 @@ namespace SatTrak
             LockTimer.Interval = 1000;
             LockTimer.Start();
 
-            //this is a ghost sat to make the graph apear, it will never show.
-            //this is a ghost sat to make the graph apear, it will never show. this is temporary
-            //there will be more ghosts depending on where the user changes his position to
-            string name = "ghost", line1 = "1 40107U 14046A   14250.92710958 -.00000361  00000-0  00000+0 0   339", line2 = "2 40107 000.0329 293.8315 0001387 253.7602 238.3546 01.00268192   384";
-            Tle ghost = new Tle(name,line1,line2);
-            Satellites.Add(ghost);
+            //dont need no more ghosts :)
         }
 
         //Returns the azimuth and elevation from a TLE
@@ -144,21 +141,26 @@ namespace SatTrak
                 //responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
 
                 // Close everything.
-                
+
             }
             catch (ArgumentNullException e)
             {
-                output = "ArgumentNullException: " + e;
+                output = "ArgumentNullException: " + e.Message;
                 MessageBox.Show(output);
             }
             catch (SocketException e)
             {
-                output = "SocketException: " + e.ToString();
+                output = "SocketException: " + e.Message;
                 MessageBox.Show(output);
             }
             catch (InvalidOperationException e)
             {
-                output = "InvalidOperationException: " + e.ToString();
+                output = "InvalidOperationException: " + e.Message;
+                MessageBox.Show(output);
+            }
+            catch (IOException e)
+            {
+                output = "IOException: " + e.Message;
                 MessageBox.Show(output);
             }
             
@@ -170,7 +172,7 @@ namespace SatTrak
             WebClient client = new WebClient();
             StringBuilder url = new StringBuilder("http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=");
             url.Append(HttpUtility.UrlEncode(name.Trim(' ').Replace(" ", "-")));
-            Console.WriteLine(url.ToString());
+            //Console.WriteLine(url.ToString());
             Stream stream = client.OpenRead(url.ToString());
             StreamReader lineReader = new StreamReader(stream);
          
@@ -240,6 +242,8 @@ namespace SatTrak
         {
             //clear the points and creating a new series
             this.Radar.Series[0].Points.Clear();
+            this.Radar.Series[1].Points.Clear();
+            this.Radar.Series[2].Points.Clear();
 
             foreach (Tle tle in Satellites)
             {
@@ -253,18 +257,24 @@ namespace SatTrak
                     continue;
                 }
                 if (!(array == null))
-                    if (tle == Target)
+                {
+                    if (LockedOn && Target != null && tle.Name == Target.Name)
                     {
-                        Radar.Series[0].Color = System.Drawing.Color.Crimson;
-                        Radar.Series[0].Points.AddXY(array[0], array[1]);
+                        Radar.Series[1].Points.AddXY(array[0], array[1]);
+                        Radar.Series[2].Points.AddXY(array[0], array[1]);
                     }
                     else
                     {
-                        Radar.Series[0].Color = System.Drawing.Color.DodgerBlue;
                         Radar.Series[0].Points.AddXY(array[0], array[1]);
                     }
+                }
                     
             }
+            if (!LockedOn)
+            {
+                Radar.Series[1].Points.AddXY(aimAt[0], aimAt[1]);
+            }
+            else
             //this is temporary
             if (!(Target == null))
                 showSatInfo();
@@ -274,10 +284,14 @@ namespace SatTrak
         {
             if (client != null && client.Connected)
             {
-                if(Target != null)
+                if(Target != null && LockedOn)
                 {
                     double[] coord = getSkyCoords(Target);
                     sendData("START|" + coord[0].ToString() + "|" + coord[1].ToString() + "|END");
+                }
+                else if (aimLock)
+                {
+                    sendData("START|" + aimAt[0].ToString() + "|" + aimAt[1].ToString() + "|END");
                 }
             }
         }
@@ -303,7 +317,7 @@ namespace SatTrak
             // InvokeRequired required compares the thread ID of the 
             // calling thread to the thread ID of the creating thread. 
             // If these threads are different, it returns true. 
-            if (this.textBox1.InvokeRequired)
+            if (this.azimuthBox.InvokeRequired)
             {
                 SetTextCallback d = new SetTextCallback(SetLoadProgress);
                 this.Invoke(d, new object[] { prog });
@@ -390,6 +404,8 @@ namespace SatTrak
             {
                 satList.Items.RemoveAt(i);
             }
+            aimLock = false;
+            LockedOn = false;
             statusText.Text = "Cleared satellite list.";
         }
 
@@ -408,6 +424,7 @@ namespace SatTrak
                     break;
                 }
             }
+            aimLock = false;
             /*
             WolframAlpha wolfram = new WolframAlpha(WolframAppId);
 
@@ -437,7 +454,14 @@ namespace SatTrak
 
         private void aimButton_Click(object sender, EventArgs e)
         {
-            
+            if (LockedOn)
+                LockedOn = false;
+                
+            aimLock = true;
+            statusText.Text = "Aim locked to: " + azimuthBox.Value.ToString() + "°, " + elevationBox.Value.ToString() + "°";
+                
+            aimAt[0] = azimuthBox.Value;
+            aimAt[1] = elevationBox.Value;
         }
 
         private void connectButton_Click(object sender, EventArgs e)
@@ -455,7 +479,7 @@ namespace SatTrak
                     }
                     catch (SocketException err)
                     {
-                        MessageBox.Show("Invalid characters in the IP/port field.");
+                        MessageBox.Show(err.Message);
                     }
 
                 }
@@ -483,21 +507,6 @@ namespace SatTrak
                 MessageBox.Show("Client not connected.");
             }
         }
-   
-        private void statusProgressBar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Radar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void coordSetButton_Click(object sender, EventArgs e)
         {
@@ -506,7 +515,8 @@ namespace SatTrak
                 Convert.ToDouble(longitudeBox.Text) > 180 || 
                 Convert.ToDouble(longitudeBox.Text) < -180 || 
                 Convert.ToDouble(latitudeBox.Text) > 90 || 
-                Convert.ToDouble(latitudeBox.Text) < -90)
+                Convert.ToDouble(latitudeBox.Text) < -90
+            )
             {
                 MessageBox.Show("Invalid coordinates");
                 return;
@@ -529,6 +539,16 @@ namespace SatTrak
 
         private void Radar_Paint(object sender, PaintEventArgs e)
         {
+            #region LegacyCode
+            /*
+            
+            ////////////////////////////////
+            //////LEGACY CODE BELOW/////////
+            //////     RIP IN PIECE/////////
+            //////        2014-2015/////////
+            ////////////////////////////////
+            
+            
             Graphics g = e.Graphics;
 
             //this draws the dishes pointing direction in real time
@@ -616,6 +636,8 @@ namespace SatTrak
                     g.FillRectangle(Brushes.Cyan, x2 + 10, y2 + 10, 1, 1);
                 }
             }
+            */
+            #endregion
         }
 
         private void tableLayoutPanel8_Paint(object sender, PaintEventArgs e)
@@ -639,7 +661,5 @@ namespace SatTrak
         }
 
         #endregion
-
-
     }
 }
