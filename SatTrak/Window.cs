@@ -21,7 +21,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-
 // WOLFRAM APP ID: XWHTJL-7RWXKQ3W34
 
 using System;
@@ -55,13 +54,14 @@ namespace SatTrak
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //INIT
+        //INIT & DEINIT
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
         #region Init
 
+        #region Vars
         private static Timer radarTimer = new System.Windows.Forms.Timer();
         private static Timer LockTimer = new System.Windows.Forms.Timer();
         private static List<Tle> Satellites = new List<Tle>();
@@ -72,9 +72,10 @@ namespace SatTrak
         delegate void SetTextCallback(int prog);
         private static TcpClient client;
         private static NetworkStream stream;
-        private static double longitude = 47.381981;
-        private static double latitude = -68.314392;
+        private static double longitude = Convert.ToDouble(Properties.Settings.Default["longitude"]);
+        private static double latitude = Convert.ToDouble(Properties.Settings.Default["latitude"]);
         private static decimal[] aimAt = {0,0};
+        #endregion
 
         public Window()
         {
@@ -92,7 +93,34 @@ namespace SatTrak
             LockTimer.Interval = 1000;
             LockTimer.Start();
 
+            longitudeBox.Text = longitude.ToString();
+            latitudeBox.Text = latitude.ToString();
+
+            ipBox.Text = Properties.Settings.Default["hostIP"].ToString();
+            portBox.Text = Properties.Settings.Default["hostPort"].ToString();
+
             //dont need no more ghosts :)
+        }
+
+        private void Window_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(!(Convert.ToDouble(Properties.Settings.Default["longitude"]) == longitude && 
+               Convert.ToDouble(Properties.Settings.Default["latitude"]) == latitude   &&
+               Properties.Settings.Default["hostIP"].ToString() == ipBox.Text          &&
+               Properties.Settings.Default["hostPort"].ToString() == portBox.Text)
+            )
+            {
+                DialogResult dialogResult = MessageBox.Show("Would you like to save your settings?", "SatTrak", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //save
+                    Properties.Settings.Default["longitude"] = longitude;
+                    Properties.Settings.Default["latitude"] = latitude;
+                    Properties.Settings.Default["hostIP"] = ipBox.Text;
+                    Properties.Settings.Default["hostPort"] = portBox.Text;
+                    Properties.Settings.Default.Save();
+                }
+            }
         }
 
         //Returns the azimuth and elevation from a TLE
@@ -222,7 +250,7 @@ namespace SatTrak
                     Boolean addIt = true;
                     foreach (Tle temp2 in Satellites)
                     {
-                        if (temp.Name.Equals(temp2.Name))
+                        if (temp.IntlDescription.ToString() == temp2.IntlDescription.ToString())
                         {
                             addIt = false;
                         }
@@ -298,17 +326,48 @@ namespace SatTrak
 
         private void showSatInfo()
         {
-            //to avoid calling the wolfram api more than once i`ll make this function only call once: when the target locks on
-            satNameLabel.Text = Target.Name;
-            while (satNameLabel.Width < System.Windows.Forms.TextRenderer.MeasureText(satNameLabel.Text, new Font(satNameLabel.Font.FontFamily, satNameLabel.Font.Size, satNameLabel.Font.Style)).Width)
+            //to update the info on the sidebar
+            try
             {
-                satNameLabel.Font = new Font(satNameLabel.Font.FontFamily, satNameLabel.Font.Size - 0.5f, satNameLabel.Font.Style);
+                satNameLabel.Text = Target.Name;
+                while (satNameLabel.Width < System.Windows.Forms.TextRenderer.MeasureText(satNameLabel.Text, new Font(satNameLabel.Font.FontFamily, satNameLabel.Font.Size, satNameLabel.Font.Style)).Width)
+                {
+                    satNameLabel.Font = new Font(satNameLabel.Font.FontFamily, satNameLabel.Font.Size - 0.5f, satNameLabel.Font.Style);
+                }
+                while (satNameLabel.Width > System.Windows.Forms.TextRenderer.MeasureText(satNameLabel.Text, new Font(satNameLabel.Font.FontFamily, satNameLabel.Font.Size, satNameLabel.Font.Style)).Width)
+                {
+                    satNameLabel.Font = new Font(satNameLabel.Font.FontFamily, satNameLabel.Font.Size + 0.5f, satNameLabel.Font.Style);
+                }
             }
-            while (satNameLabel.Width > System.Windows.Forms.TextRenderer.MeasureText(satNameLabel.Text, new Font(satNameLabel.Font.FontFamily, satNameLabel.Font.Size, satNameLabel.Font.Style)).Width)
+            catch (ArgumentException)
             {
-                satNameLabel.Font = new Font(satNameLabel.Font.FontFamily, satNameLabel.Font.Size + 0.5f, satNameLabel.Font.Style);
+                Console.WriteLine("wat");
             }
 
+            /*
+             * SECOND WAY TO DO IT
+             * 
+            Orbit orbit = new Orbit(Target);
+            //get the date
+            DateTime dt = DateTime.UtcNow;
+            //get the time since the epoch
+            TimeSpan ts = orbit.TPlusEpoch(dt);
+            //then calculate the position
+            EciTime eci = orbit.GetPosition(dt);
+
+            Console.WriteLine("vel: " + eci.Velocity.X + " " + eci.Velocity.Y + " " + eci.Velocity.Z + " " + eci.Velocity.W);
+            */
+            double meanMotion = Convert.ToDouble(Target.Line2.Substring(52, 10));
+            double twothirds = 0.666666666666666;
+            double a = 6.6228 / (Math.Pow(meanMotion, twothirds));
+            double semimajor = a * 6371.1;
+            double apogee = (semimajor * (1.0 + Convert.ToDouble(Target.Eccentricity)) - 6371.1);
+            double perigee = (semimajor * (1.0 - Convert.ToDouble(Target.Eccentricity)) - 6371.1);
+
+            designatorLabel.Text = "Int'l Des: " + Target.IntlDescription;
+            apogeeLabel.Text = "Apogee: " + apogee.ToString("0.0") + "km";
+            perigeeLabel.Text = "Perigee: " + perigee.ToString("0.0") + "km";
+            inclinationLabel.Text = "Inclination: " + Target.Inclination;
             
         }
 
@@ -525,6 +584,17 @@ namespace SatTrak
             latitude = Convert.ToDouble(latitudeBox.Text);
         }
 
+        private void saveSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //save
+            Properties.Settings.Default["longitude"] = longitude;
+            Properties.Settings.Default["latitude"] = latitude;
+            Properties.Settings.Default["hostIP"] = ipBox.Text;             
+            Properties.Settings.Default["hostPort"] = portBox.Text;
+            Properties.Settings.Default.Save();
+            statusText.Text = "Settings saved.";
+        }
+
         #endregion
 
 
@@ -661,5 +731,7 @@ namespace SatTrak
         }
 
         #endregion
+
+
     }
 }

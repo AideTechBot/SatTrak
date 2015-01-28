@@ -70,12 +70,18 @@
             this.coordSetButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.satNameLabel = new System.Windows.Forms.Label();
             this.desc = new System.Windows.Forms.Label();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.designatorLabel = new System.Windows.Forms.Label();
+            this.apogeeLabel = new System.Windows.Forms.Label();
+            this.perigeeLabel = new System.Windows.Forms.Label();
+            this.inclinationLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.splitTable.SuspendLayout();
@@ -96,6 +102,7 @@
             this.menuStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitTable
@@ -635,9 +642,18 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveSettingsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 16);
             this.fileToolStripMenuItem.Text = "File";
+            // 
+            // saveSettingsToolStripMenuItem
+            // 
+            this.saveSettingsToolStripMenuItem.Name = "saveSettingsToolStripMenuItem";
+            this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveSettingsToolStripMenuItem.Text = "Save Settings";
+            this.saveSettingsToolStripMenuItem.Click += new System.EventHandler(this.saveSettingsToolStripMenuItem_Click);
             // 
             // statusStrip
             // 
@@ -668,15 +684,16 @@
             // 
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.Controls.Add(this.satNameLabel, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.desc, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.desc, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel10, 0, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(789, 23);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
+            this.tableLayoutPanel4.RowCount = 3;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(192, 516);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
@@ -685,23 +702,84 @@
             this.satNameLabel.AutoSize = true;
             this.satNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.satNameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.satNameLabel.Location = new System.Drawing.Point(3, 0);
+            this.satNameLabel.Location = new System.Drawing.Point(3, 3);
+            this.satNameLabel.Margin = new System.Windows.Forms.Padding(3);
             this.satNameLabel.Name = "satNameLabel";
-            this.satNameLabel.Size = new System.Drawing.Size(186, 51);
+            this.satNameLabel.Size = new System.Drawing.Size(186, 46);
             this.satNameLabel.TabIndex = 0;
             this.satNameLabel.Text = " -";
-            this.satNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.satNameLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // desc
             // 
             this.desc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.desc.Location = new System.Drawing.Point(0, 51);
-            this.desc.Margin = new System.Windows.Forms.Padding(0);
+            this.desc.Location = new System.Drawing.Point(3, 135);
+            this.desc.Margin = new System.Windows.Forms.Padding(3);
             this.desc.Name = "desc";
-            this.desc.Size = new System.Drawing.Size(192, 465);
+            this.desc.Size = new System.Drawing.Size(186, 378);
             this.desc.TabIndex = 1;
             this.desc.Text = "N/A";
             this.desc.Click += new System.EventHandler(this.description_Click);
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 1;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.Controls.Add(this.designatorLabel, 0, 0);
+            this.tableLayoutPanel10.Controls.Add(this.apogeeLabel, 0, 1);
+            this.tableLayoutPanel10.Controls.Add(this.perigeeLabel, 0, 2);
+            this.tableLayoutPanel10.Controls.Add(this.inclinationLabel, 0, 3);
+            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(0, 52);
+            this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 4;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(192, 80);
+            this.tableLayoutPanel10.TabIndex = 2;
+            // 
+            // designatorLabel
+            // 
+            this.designatorLabel.AutoSize = true;
+            this.designatorLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.designatorLabel.Location = new System.Drawing.Point(3, 3);
+            this.designatorLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.designatorLabel.Name = "designatorLabel";
+            this.designatorLabel.Size = new System.Drawing.Size(186, 14);
+            this.designatorLabel.TabIndex = 0;
+            // 
+            // apogeeLabel
+            // 
+            this.apogeeLabel.AutoSize = true;
+            this.apogeeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.apogeeLabel.Location = new System.Drawing.Point(3, 23);
+            this.apogeeLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.apogeeLabel.Name = "apogeeLabel";
+            this.apogeeLabel.Size = new System.Drawing.Size(186, 14);
+            this.apogeeLabel.TabIndex = 1;
+            // 
+            // perigeeLabel
+            // 
+            this.perigeeLabel.AutoSize = true;
+            this.perigeeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.perigeeLabel.Location = new System.Drawing.Point(3, 43);
+            this.perigeeLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.perigeeLabel.Name = "perigeeLabel";
+            this.perigeeLabel.Size = new System.Drawing.Size(186, 14);
+            this.perigeeLabel.TabIndex = 2;
+            // 
+            // inclinationLabel
+            // 
+            this.inclinationLabel.AutoSize = true;
+            this.inclinationLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inclinationLabel.Location = new System.Drawing.Point(3, 63);
+            this.inclinationLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.inclinationLabel.Name = "inclinationLabel";
+            this.inclinationLabel.Size = new System.Drawing.Size(186, 14);
+            this.inclinationLabel.TabIndex = 3;
             // 
             // panel1
             // 
@@ -736,6 +814,7 @@
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SatTrak";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Window_FormClosing);
             this.Load += new System.EventHandler(this.Window_Load);
             this.splitTable.ResumeLayout(false);
             this.splitTable.PerformLayout();
@@ -765,6 +844,8 @@
             this.statusStrip.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
+            this.tableLayoutPanel10.ResumeLayout(false);
+            this.tableLayoutPanel10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -816,6 +897,12 @@
         private System.Windows.Forms.NumericUpDown elevationBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
+        private System.Windows.Forms.Label designatorLabel;
+        private System.Windows.Forms.Label apogeeLabel;
+        private System.Windows.Forms.Label perigeeLabel;
+        private System.Windows.Forms.Label inclinationLabel;
+        private System.Windows.Forms.ToolStripMenuItem saveSettingsToolStripMenuItem;
 
 
 

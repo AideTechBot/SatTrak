@@ -271,6 +271,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a satellite";
             this.Load += new System.EventHandler(this.AddWindow_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
