@@ -25,21 +25,23 @@ InstallPrompt=SatTrak will install.
 DisplayLicense=D:\Manuel\Github\SatTrak\LICENSE
 FinishMessage=Thank you for installing SatTrak.
 TargetName=D:\Manuel\Github\SatTrak\SatTrak\bin\Release\SatTrakInstaller.EXE
-FriendlyName=SatTrak 0.1 Beta
+FriendlyName=SatTrak 0.2 Beta
 AppLaunched=
 PostInstallCmd=
 AdminQuietInstCmd=
 UserQuietInstCmd=
-FILE0="SatTrak.exe"
-FILE1="WolframAlpha.NET.dll"
-FILE2="Zeptomoby.OrbitTools.Core.dll"
-FILE3="Zeptomoby.OrbitTools.Orbit.dll"
-FILE4="Newtonsoft.Json.dll"
+FILE0="WolframAlpha.NET.dll"
+FILE1="Zeptomoby.OrbitTools.Core.dll"
+FILE2="Zeptomoby.OrbitTools.Orbit.dll"
+FILE3="Newtonsoft.Json.dll"
+FILE4="SatTrak.exe"
 [SourceFiles]
 SourceFiles0=D:\Manuel\Github\SatTrak\SatTrak\bin\Release\
+SourceFiles1=D:\Manuel\Github\SatTrak\SatTrak\bin\Debug\
 [SourceFiles0]
 %FILE0%=
 %FILE1%=
 %FILE2%=
 %FILE3%=
+[SourceFiles1]
 %FILE4%=
