@@ -64,6 +64,10 @@ namespace SatTrak
         #region Vars
         private static Timer radarTimer = new System.Windows.Forms.Timer();
         private static Timer LockTimer = new System.Windows.Forms.Timer();
+        private static Timer joystickTimer;
+        private static int joyStickBNum;
+        private static int joyStickFPS = 10;
+        private static decimal sensitivity = 0.5M;
         private static List<Tle> Satellites = new List<Tle>();
         public static bool LockedOn = false;
         public static Tle Target;
@@ -90,7 +94,7 @@ namespace SatTrak
             this.Radar.Paint +=new System.Windows.Forms.PaintEventHandler(this.Radar_Paint);
 
             LockTimer.Tick += new EventHandler(SendPosition);
-            LockTimer.Interval = 1000;
+            LockTimer.Interval = 500;
             LockTimer.Start();
 
             longitudeBox.Text = longitude.ToString();
@@ -317,7 +321,7 @@ namespace SatTrak
                     double[] coord = getSkyCoords(Target);
                     sendData("START|" + coord[0].ToString() + "|" + coord[1].ToString() + "|END");
                 }
-                else if (aimLock)
+                else if (aimLock || manualAimToggle.Checked)
                 {
                     sendData("START|" + aimAt[0].ToString() + "|" + aimAt[1].ToString() + "|END");
                 }
@@ -484,6 +488,7 @@ namespace SatTrak
                 }
             }
             aimLock = false;
+            manualAimToggle.CheckState = 0;
             /*
             WolframAlpha wolfram = new WolframAlpha(WolframAppId);
 
@@ -515,6 +520,10 @@ namespace SatTrak
         {
             if (LockedOn)
                 LockedOn = false;
+
+            if (manualAimToggle.Checked)
+                manualAimToggle.CheckState = 0;
+
                 
             aimLock = true;
             statusText.Text = "Aim locked to: " + azimuthBox.Value.ToString() + "°, " + elevationBox.Value.ToString() + "°";
@@ -527,25 +536,18 @@ namespace SatTrak
         {
             try
             {
-                if (Target != null)
+                try
                 {
-                    try
-                    {
-                        statusText.Text = "Connecting to: " + ipBox.Text.ToString() + ":" + portBox.Text.ToString();
-                        client = new TcpClient(ipBox.Text, Convert.ToInt32(portBox.Text));
-                        stream = client.GetStream();
-                        statusText.Text = "Connected.";
-                    }
-                    catch (SocketException err)
-                    {
-                        MessageBox.Show(err.Message);
-                    }
+                    statusText.Text = "Connecting to: " + ipBox.Text.ToString() + ":" + portBox.Text.ToString();
+                    client = new TcpClient(ipBox.Text, Convert.ToInt32(portBox.Text));
+                    stream = client.GetStream();
+                    statusText.Text = "Connected.";
+                }
+                catch (SocketException err)
+                {
+                    MessageBox.Show(err.Message);
+                }
 
-                }
-                else
-                {
-                    MessageBox.Show("No target set.");
-                }
             }
             catch (SocketException er)
             {
@@ -594,6 +596,112 @@ namespace SatTrak
             Properties.Settings.Default.Save();
             statusText.Text = "Settings saved.";
         }
+
+        #region Joystick
+
+        private void upButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            joystickTimer = new Timer();
+            joystickTimer.Interval = joyStickFPS;
+            joystickTimer.Tick += joyStick_Tick;
+            joystickTimer.Start();
+            joyStickBNum = 1;
+        }
+
+        private void rightButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            joystickTimer = new Timer();
+            joystickTimer.Interval = joyStickFPS;
+            joystickTimer.Tick += joyStick_Tick;
+            joystickTimer.Start();
+            joyStickBNum = 2;
+        }
+
+        private void downButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            joystickTimer = new Timer();
+            joystickTimer.Interval = joyStickFPS;
+            joystickTimer.Tick += joyStick_Tick;
+            joystickTimer.Start();
+            joyStickBNum = 3;
+        }
+
+        private void leftButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            joystickTimer = new Timer();
+            joystickTimer.Interval = joyStickFPS;
+            joystickTimer.Tick += joyStick_Tick;
+            joystickTimer.Start();
+            joyStickBNum = 4;
+        }
+
+        private void joyStick_Tick(object sender, EventArgs e)
+        {
+            if (manualAimToggle.Checked)
+            {
+                switch(joyStickBNum)
+                {
+                    case 1:
+                        aimAt[1] += sensitivity;
+                        if (aimAt[1] > 90)
+                            aimAt[1] = 90.0M;
+                        break;
+                    case 2:
+                        aimAt[0] += sensitivity;
+                        if (aimAt[0] > 360)
+                            aimAt[0] = 360.0M;
+                        break;
+                    case 3:
+                        aimAt[1] -= sensitivity;
+                        if (aimAt[1] < 0)
+                            aimAt[1] = 0.0M;
+                        break;
+                    case 4:
+                        aimAt[0] -= sensitivity;
+                        if (aimAt[0] < 0)
+                            aimAt[0] = 0.0M;
+                        break;
+                }
+            }
+        }
+
+        private void upButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            joystickTimer.Stop();
+            joystickTimer = null;
+        }
+
+        private void rightButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            joystickTimer.Stop();
+            joystickTimer = null;
+        }
+
+        private void downButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            joystickTimer.Stop();
+            joystickTimer = null;
+        }
+
+        private void leftButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            joystickTimer.Stop();
+            joystickTimer = null;
+        }
+
+        private void manualAimToggle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (manualAimToggle.Checked)
+            {
+                if (LockedOn || aimLock)
+                {
+                    LockedOn = false;
+                    aimLock = false;
+                }
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -732,6 +840,6 @@ namespace SatTrak
 
         #endregion
 
-
+        
     }
 }
