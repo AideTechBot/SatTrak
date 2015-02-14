@@ -349,9 +349,7 @@ namespace SatTrak
                 Console.WriteLine("wat");
             }
 
-            /*
-             * SECOND WAY TO DO IT
-             * 
+            
             Orbit orbit = new Orbit(Target);
             //get the date
             DateTime dt = DateTime.UtcNow;
@@ -359,9 +357,8 @@ namespace SatTrak
             TimeSpan ts = orbit.TPlusEpoch(dt);
             //then calculate the position
             EciTime eci = orbit.GetPosition(dt);
-
-            Console.WriteLine("vel: " + eci.Velocity.X + " " + eci.Velocity.Y + " " + eci.Velocity.Z + " " + eci.Velocity.W);
-            */
+       
+            /*
             double e = double.Parse(Target.Eccentricity, NumberStyles.AllowDecimalPoint, CultureInfo.CurrentCulture);
             double meanMotion = Convert.ToDouble(Target.Line2.Substring(52, 10));
             double twothirds = 0.666666666666666;
@@ -369,10 +366,11 @@ namespace SatTrak
             double semimajor = a * 6371.1;
             double apogee = (semimajor * (1.0 + e) - 6371.1);
             double perigee = (semimajor * (1.0 - e) - 6371.1);
+            */
 
             designatorLabel.Text = "Int'l Des: " + Target.IntlDescription;
-            apogeeLabel.Text = "Apogee: " + apogee.ToString("0.0") + "km";
-            perigeeLabel.Text = "Perigee: " + perigee.ToString("0.0") + "km";
+            apogeeLabel.Text = "Apogee: " + orbit.Apogee.ToString("0.0") + "km";
+            perigeeLabel.Text = "Perigee: " + orbit.Perigee.ToString("0.0") + "km";
             inclinationLabel.Text = "Inclination: " + Target.Inclination;
             
         }
