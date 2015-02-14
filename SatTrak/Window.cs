@@ -38,6 +38,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Net.Sockets;
 using System.Web;
+using System.Globalization;
 using Zeptomoby.OrbitTools;
 using WolframAlphaNET;
 using WolframAlphaNET.Misc;
@@ -361,12 +362,13 @@ namespace SatTrak
 
             Console.WriteLine("vel: " + eci.Velocity.X + " " + eci.Velocity.Y + " " + eci.Velocity.Z + " " + eci.Velocity.W);
             */
+            double e = double.Parse(Target.Eccentricity, NumberStyles.AllowDecimalPoint, CultureInfo.CurrentCulture);
             double meanMotion = Convert.ToDouble(Target.Line2.Substring(52, 10));
             double twothirds = 0.666666666666666;
             double a = 6.6228 / (Math.Pow(meanMotion, twothirds));
             double semimajor = a * 6371.1;
-            double apogee = (semimajor * (1.0 + Convert.ToDouble(Target.Eccentricity)) - 6371.1);
-            double perigee = (semimajor * (1.0 - Convert.ToDouble(Target.Eccentricity)) - 6371.1);
+            double apogee = (semimajor * (1.0 + e) - 6371.1);
+            double perigee = (semimajor * (1.0 - e) - 6371.1);
 
             designatorLabel.Text = "Int'l Des: " + Target.IntlDescription;
             apogeeLabel.Text = "Apogee: " + apogee.ToString("0.0") + "km";
