@@ -1,0 +1,25 @@
+;Auto-generated Diamond Directive File. Can be deleted without harm.
+.Set CabinetNameTemplate=D:\Manuel\Github\SatTrak\SatTrak\bin\Release\~SatTrak_1.0_Installer.CAB
+.Set CompressionType=LZX
+.Set CompressionLevel=7
+.Set InfFileName=D:\Manuel\Github\SatTrak\SatTrak\bin\Release\~SatTrak_1.0_Installer_LAYOUT.INF
+.Set RptFileName=D:\Manuel\Github\SatTrak\SatTrak\bin\Release\~SatTrak_1.0_Installer.RPT
+.Set MaxDiskSize=CDROM
+.Set ReservePerCabinetSize=0
+.Set InfCabinetLineFormat=*cab#*=Application Source Media,*cabfile*,0
+.Set Compress=on
+.Set CompressionMemory=21
+.Set DiskDirectoryTemplate=
+.Set Cabinet=ON
+.Set MaxCabinetSize=999999999
+.Set InfDiskHeader=
+.Set InfDiskLineFormat=
+.Set InfCabinetHeader=[SourceDisksNames]
+.Set InfFileHeader=
+.Set InfFileHeader1=[SourceDisksFiles]
+.Set InfFileLineFormat=*file*=*cab#*,,*size*,*csum*
+"D:\Manuel\Github\SatTrak\SatTrak\bin\Release\WolframAlpha.NET.dll"
+"D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Newtonsoft.Json.dll"
+"D:\Manuel\Github\SatTrak\SatTrak\bin\Release\SatTrak.exe"
+"D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Zeptomoby.OrbitTools.Core.dll"
+"D:\Manuel\Github\SatTrak\SatTrak\bin\Release\Zeptomoby.OrbitTools.Orbit.dll"

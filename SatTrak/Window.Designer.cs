@@ -778,8 +778,8 @@
             // statusText
             // 
             this.statusText.Name = "statusText";
-            this.statusText.Size = new System.Drawing.Size(38, 15);
-            this.statusText.Text = "status";
+            this.statusText.Size = new System.Drawing.Size(49, 15);
+            this.statusText.Text = "              ";
             this.statusText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // statusProgressBar
