@@ -201,27 +201,34 @@ namespace SatTrak
 
         private void setDescription(string name)
         {
-          
-            WebClient client = new WebClient();
-            StringBuilder url = new StringBuilder("http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=");
-            url.Append(HttpUtility.UrlEncode(name.Trim(' ').Replace(" ", "-")));
-            //Console.WriteLine(url.ToString());
-            Stream stream = client.OpenRead(url.ToString());
-            StreamReader lineReader = new StreamReader(stream);
-         
-            Stream webStream = client.OpenRead(url.ToString());
-            StreamReader reader = new StreamReader(webStream);
-
-            string response = reader.ReadToEnd();
-            JObject data = JObject.Parse(response);
             try
             {
-                string noHTML = Regex.Replace(data["query"]["pages"].First.First["extract"].ToString(), @"<[^>]+>|&nbsp;", "").Trim();
-                desc.Text = noHTML;
+                WebClient client = new WebClient();
+                StringBuilder url = new StringBuilder("http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=");
+                url.Append(HttpUtility.UrlEncode(name.Trim(' ').Replace(" ", "-")));
+                //Console.WriteLine(url.ToString());
+                Stream stream = client.OpenRead(url.ToString());
+                StreamReader lineReader = new StreamReader(stream);
+
+                Stream webStream = client.OpenRead(url.ToString());
+                StreamReader reader = new StreamReader(webStream);
+
+                string response = reader.ReadToEnd();
+                JObject data = JObject.Parse(response);
+                try
+                {
+                    string noHTML = Regex.Replace(data["query"]["pages"].First.First["extract"].ToString(), @"<[^>]+>|&nbsp;", "").Trim();
+                    desc.Text = noHTML;
+                }
+                catch (NullReferenceException)
+                {
+                    desc.Text = "N/A";
+                }
             }
-            catch (NullReferenceException)
+            catch (WebException e)
             {
-                desc.Text = "N/A";
+                string output = "WebException: " + e.Message;
+                MessageBox.Show(output);
             }
         }
 
