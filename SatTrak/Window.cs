@@ -80,6 +80,8 @@ namespace SatTrak
         private static double longitude = Convert.ToDouble(Properties.Settings.Default["longitude"]);
         private static double latitude = Convert.ToDouble(Properties.Settings.Default["latitude"]);
         private static decimal[] aimAt = {0,0};
+        private static List<string> labels = new List<string>();
+        private static DataPoint oldpoint = new DataPoint();
         #endregion
 
         public Window()
@@ -227,8 +229,6 @@ namespace SatTrak
             }
             catch (WebException e)
             {
-                string output = "WebException: " + e.Message;
-                MessageBox.Show(output);
             }
         }
 
@@ -276,14 +276,28 @@ namespace SatTrak
                 Satellites.AddRange(addList);
             }
             statusText.Text = "Done.";
+
+            //adding them all to the radar
+            foreach (Tle tle in Satellites)
+            {
+                double[] array;
+                try
+                {
+                    array = getSkyCoords(tle);
+                }
+                catch (Zeptomoby.OrbitTools.DecayException)
+                {
+                    continue;
+                }
+                Radar.Series[0].Points.AddXY(array[0], array[1]);
+            }
         }
 
         public void UpdateInfo(Object obj, EventArgs e)
         {
-            //clear the points and creating a new series
-            this.Radar.Series[0].Points.Clear();
-            this.Radar.Series[1].Points.Clear();
-            this.Radar.Series[2].Points.Clear();
+            //update the point positions
+            Radar.Series[1].Points.Clear();
+            Radar.Series[2].Points.Clear();
 
             foreach (Tle tle in Satellites)
             {
@@ -302,10 +316,19 @@ namespace SatTrak
                     {
                         Radar.Series[1].Points.AddXY(array[0], array[1]);
                         Radar.Series[2].Points.AddXY(array[0], array[1]);
+                        Radar.Series[0].Points.ElementAt(Satellites.IndexOf(tle)).SetValueXY(array[0], array[1]);
                     }
                     else
                     {
-                        Radar.Series[0].Points.AddXY(array[0], array[1]);
+                        try
+                        {
+                            Radar.Series[0].Points.ElementAt(Satellites.IndexOf(tle)).SetValueXY(array[0], array[1]);
+                            Radar.Series[0].Points.ElementAt(Satellites.IndexOf(tle)).ToolTip = String.Format("{0:0.00}", array[0]) + ", " + String.Format("{0:0.00}", array[1]);
+                        }
+                        catch (ArgumentOutOfRangeException)
+                        {
+
+                        }
                     }
                 }
                     
@@ -403,12 +426,12 @@ namespace SatTrak
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //CLICK HANDLERS
+        //EVENT HANDLERS
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         
         
-        #region ClickHandlers
+        #region EventHandlers
 
         //THIS HANDLES REMOVING SATELLITES
         private void removeButton_Click(object sender, EventArgs e)
@@ -473,6 +496,10 @@ namespace SatTrak
             for (int i = satList.Items.Count - 1; i >= 0; i--)
             {
                 satList.Items.RemoveAt(i);
+            }
+            for (int i = Radar.Series[0].Points.Count - 1; i >= 0; i--)
+            {
+                Radar.Series[0].Points.RemoveAt(i);
             }
             aimLock = false;
             LockedOn = false;
@@ -602,6 +629,60 @@ namespace SatTrak
             Properties.Settings.Default["hostPort"] = portBox.Text;
             Properties.Settings.Default.Save();
             statusText.Text = "Settings saved.";
+        }
+
+        private void Radar_MouseClick(object sender, MouseEventArgs e)
+        {
+            // Call HitTest
+            HitTestResult result = Radar.HitTest(e.X, e.Y);
+
+            // If the mouse if over a data point
+            if (result.ChartElementType == ChartElementType.DataPoint)
+            {
+                LockedOn = true;
+                foreach (Tle tle in Satellites)
+                {
+                    if (tle.Name == Satellites[result.PointIndex].Name)
+                    {
+                        Target = tle;
+                        break;
+                    }
+                }
+                aimLock = false;
+                manualAimToggle.CheckState = 0;
+            }
+        }
+
+        private void Radar_MouseMove(object sender, MouseEventArgs e)
+        {
+            HitTestResult result = Radar.HitTest(e.X, e.Y);
+
+            // If the mouse if over a data point
+            if ((result.ChartElementType == ChartElementType.DataPoint))
+            {
+                if (Radar.Series[0].Points[result.PointIndex] != oldpoint)
+                {
+                    foreach (DataPoint point in Radar.Series[0].Points)
+                    {
+                        point.Label = null;
+                    }
+                }
+                try
+                {
+                    Radar.Series[0].Points[result.PointIndex].Label = Satellites[result.PointIndex].Name;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                }
+                oldpoint = Radar.Series[0].Points[result.PointIndex];
+            }
+            else
+            {
+                foreach (DataPoint point in Radar.Series[0].Points)
+                {
+                    point.Label = null;
+                }
+            }
         }
 
         #region Joystick
@@ -847,7 +928,7 @@ namespace SatTrak
 
         #endregion
 
+       
 
-        
     }
 }

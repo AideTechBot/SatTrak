@@ -177,6 +177,7 @@
             series1.Color = System.Drawing.Color.DodgerBlue;
             series1.CustomProperties = "PolarDrawingStyle=Marker";
             series1.IsVisibleInLegend = false;
+            series1.LabelForeColor = System.Drawing.Color.White;
             series1.Name = "Sats";
             series1.SmartLabelStyle.Enabled = false;
             series2.ChartArea = "ChartArea1";
@@ -201,6 +202,8 @@
             this.Radar.Size = new System.Drawing.Size(580, 512);
             this.Radar.TabIndex = 0;
             this.Radar.Text = "Radar";
+            this.Radar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Radar_MouseClick);
+            this.Radar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Radar_MouseMove);
             // 
             // menuTable
             // 
